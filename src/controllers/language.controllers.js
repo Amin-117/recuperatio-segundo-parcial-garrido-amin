@@ -1,27 +1,30 @@
 import modelLanguage from "../models/language.model.js";
 
-export const createLenguage = async (req, res) =>{
-    const {name, paradigm, realse_year} = req.body;
+export const createLenguage = async (req, res) => {
+  const { name, paradigm, release_year } = req.body;
 
-    try{
+  try {
+    if (!name)
+      return res.status(400).json({ message: "el campo `name` es obligatorio" });
 
-        if (!name)
-            return res.status(400).json({message: "el campo `name` es obligatorio"})
-        if (!paradigm)
-            return res.status(400).json({message: "el campo `paradigm` es obligatorio"})
+    if (!paradigm)
+      return res.status(400).json({ message: "el campo `paradigm` es obligatorio" });
 
-        const languageExist = await modelLanguage.findOne({where: {name}});
-        if (languageExist)
-            return res.status(400).json({message: "ya existe este lenguaje"});
+    const languageExist = await modelLanguage.findOne({ where: { name } });
+    if (languageExist)
+      return res.status(400).json({ message: "ya existe este lenguaje" });
 
-        const language = await modelLanguage.create({
-            name,
-            paradigm,
-        });
-        return res.status(200).json({message: "lenguage creado correctamente"});
-    } catch (error) {
-        return res.status(400).json({message: "hubo un error al crear"});
-    }
+    const language = await modelLanguage.create({
+      name,
+      paradigm,
+      release_year,
+    });
+
+    return res.status(200).json(language);
+
+  } catch (error) {
+    return res.status(400).json({ message: "hubo un error al crear" });
+  }
 };
 
 export const getAllLenguage = async (req, res) =>{

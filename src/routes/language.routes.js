@@ -10,10 +10,10 @@ import{
 
 const routes = express.Router();
 
-routes.get("/", createLenguage);
+routes.post("/", createLenguage);
 routes.get("/", getAllLenguage);
 routes.get("/:id", getlenguageById);
-routes.get("/:id", updateLanguage);
-routes.get("/:id", daleteLanguage);
+routes.put("/:id", updateLanguage);
+routes.delete("/:id", daleteLanguage);
 
 export default routes;
