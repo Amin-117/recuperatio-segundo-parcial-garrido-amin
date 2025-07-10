@@ -66,7 +66,7 @@ export const daleteLanguage = async (req, res) => {
     try{
         const language = await modelLanguage.findByPk(req.params.id);
         if (language) { 
-            const daleteLanguage = await modelLanguage.destroy();
+            const daleteLanguage = await modelLanguage.destroy(language);
         return res.status(200).json({message:"se elimino correctamente"});
         } else {
             return  res.status(404).json({message:"no se encontro la pelicual a eliminar"});
